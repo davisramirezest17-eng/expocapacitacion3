@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expo Capacitación. Informática.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1a1a26;
+      --border: rgba(255,255,255,0.07);
+      --accent: #7c6ef8;
+      --accent2: #4fc3a1;
+      --accent3: #f06a6a;
+      --accent4: #f5c542;
+      --text: #f0eff8;
+      --muted: #7a79a0;
+      --card-radius: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+    }
+
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .nav-brand span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+      overflow-x: auto;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 6px 14px;
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--surface2); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124,110,248,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(79,195,161,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(124,110,248,0.35);
+      background: rgba(124,110,248,0.08);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .pill {
+      padding: 8px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .pill:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── SECTION ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .sem-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .sem-badge {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+    }
+
+    .badge-3 { background: rgba(124,110,248,0.15); color: var(--accent); border: 1px solid rgba(124,110,248,0.3); }
+    .badge-4 { background: rgba(79,195,161,0.12); color: var(--accent2); border: 1px solid rgba(79,195,161,0.25); }
+    .badge-5 { background: rgba(245,197,66,0.12); color: var(--accent4); border: 1px solid rgba(245,197,66,0.25); }
+    .badge-6 { background: rgba(240,106,106,0.12); color: var(--accent3); border: 1px solid rgba(240,106,106,0.25); }
+
+    .sem-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .divider { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── SUBJECT CARDS ── */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(124,110,248,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.75) saturate(0.9);
+      transition: filter 0.3s, transform 0.4s;
+    }
+
+    .card:hover .card-img { filter: brightness(0.9) saturate(1.1); transform: scale(1.03); }
+
+    .card-img-wrap { overflow: hidden; }
+
+    .card-body { padding: 1.5rem; }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+    }
+
+    .tag-so { background: rgba(124,110,248,0.15); color: var(--accent); }
+    .tag-mant { background: rgba(240,106,106,0.13); color: var(--accent3); }
+    .tag-excel { background: rgba(79,195,161,0.13); color: var(--accent2); }
+    .tag-word { background: rgba(79,195,161,0.13); color: var(--accent2); }
+    .tag-corel { background: rgba(245,197,66,0.13); color: var(--accent4); }
+    .tag-ps { background: rgba(245,197,66,0.13); color: var(--accent4); }
+    .tag-web { background: rgba(240,106,106,0.13); color: var(--accent3); }
+    .tag-com { background: rgba(240,106,106,0.13); color: var(--accent3); }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .topics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .topic {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .card:hover .topic { color: rgba(240,239,248,0.75); }
+
+    .topic-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .dot-so { background: var(--accent); }
+    .dot-mant { background: var(--accent3); }
+    .dot-excel { background: var(--accent2); }
+    .dot-word { background: var(--accent2); }
+    .dot-corel { background: var(--accent4); }
+    .dot-ps { background: var(--accent4); }
+    .dot-web { background: var(--accent3); }
+    .dot-com { background: var(--accent3); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer strong { color: var(--accent); font-family: 'Syne', sans-serif; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-brand { font-size: 0.95rem; }
+      .nav-links a { padding: 6px 10px; font-size: 0.75rem; }
+      section { padding: 4rem 1.25rem; }
+      .subject-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-brand">Expo<span>.</span>Informática</div>
+  <ul class="nav-links">
+    <li><a href="#sem3">3.° Semestre</a></li>
+    <li><a href="#sem4">4.° Semestre</a></li>
+    <li><a href="#sem5">5.° Semestre</a></li>
+    <li><a href="#sem6">6.° Semestre</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-label">Capacitación Técnica en Informática</div>
+  <h1>Expo<br><em>Capacitación.</em><br>Informática.</h1>
+  <p class="hero-desc">Explora las materias de informática organizadas por semestre: desde sistemas operativos hasta diseño web y comunidades virtuales.</p>
+  <div class="hero-pills">
+    <div class="pill">Sistemas Operativos</div>
+    <div class="pill">Hojas de Cálculo</div>
+    <div class="pill">Diseño Digital</div>
+    <div class="pill">Diseño Web</div>
+    <div class="pill">Redes Sociales</div>
+  </div>
+</div>
+
+<!-- ══ TERCER SEMESTRE ══ -->
+<section id="sem3">
+  <div class="sem-header reveal">
+    <span class="sem-badge badge-3">Tercer Semestre</span>
+    <div class="divider"></div>
+  </div>
+  <p class="sem-title reveal" style="margin-bottom:2.5rem;">Fundamentos del sistema y mantenimiento</p>
+
+  <div class="subject-grid">
+
+    <!-- Sistemas Operativos -->
+    <div class="card reveal">
+      <div class="card-img-wrap">
+        <img class="card-img" src="img/9.jpg" alt="Sistemas operativos" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag tag-so">Sistemas Operativos</span>
+        <div class="card-title">Sistemas Operativos</div>
+        <p class="card-desc">Gestión del hardware y software, administración de archivos y configuración del entorno Windows.</p>
+        <div class="topics">
+          <div class="topic"><div class="topic-dot dot-so"></div>Funciones principales (hardware y software)</div>
+          <div class="topic"><div class="topic-dot dot-so"></div>Uso de Windows</div>
+          <div class="topic"><div class="topic-dot dot-so"></div>Instalación de sistemas operativos</div>
+          <div class="topic"><div class="topic-dot dot-so"></div>Administración de archivos y carpetas</div>
+          <div class="topic"><div class="topic-dot dot-so"></div>Configuración básica del sistema</div>
+          <div class="topic"><div class="topic-dot dot-so"></div>Uso de herramientas del sistema</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mantenimiento -->
+    <div class="card reveal">
+      <div class="card-img-wrap">
+        <img class="card-img" src="img/3.jpg" alt="Mantenimiento del Equipo de Cómputo" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag tag-mant">Mantenimiento</span>
+        <div class="card-title">Mantenimiento del Equipo de Cómputo</div>
+        <p class="card-desc">Identificación, limpieza, ensamble y diagnóstico de fallas en equipos de cómputo.</p>
+        <div class="topics">
+          <div class="topic"><div class="topic-dot dot-mant"></div>Identificación de componentes</div>
+          <div class="topic"><div class="topic-dot dot-mant"></div>Limpieza preventiva del equipo</div>
+          <div class="topic"><div class="topic-dot dot-mant"></div>Tipos de mantenimiento (preventivo y correctivo)</div>
+          <div class="topic"><div class="topic-dot dot-mant"></div>Ensamble y desensamble de computadoras</div>
+          <div class="topic"><div class="topic-dot dot-mant"></div>Diagnóstico de fallas comunes</div>
+          <div class="topic"><div class="topic-dot dot-mant"></div>Uso adecuado del equipo</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CUARTO SEMESTRE ══ -->
+<section id="sem4">
+  <div class="sem-header reveal">
+    <span class="sem-badge badge-4">Cuarto Semestre</span>
+    <div class="divider"></div>
+  </div>
+  <p class="sem-title reveal" style="margin-bottom:2.5rem;">Ofimática y productividad</p>
+
+  <div class="subject-grid">
+
+    <!-- Excel -->
+    <div class="card reveal">
+      <div class="card-img-wrap">
+        <img class="card-img" src="img/5.jpg" alt="Hojas de Cálculo" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag tag-excel">Hojas de Cálculo</span>
+        <div class="card-title">Hojas de Cálculo</div>
+        <p class="card-desc">Uso de Microsoft Excel para organizar datos, crear gráficos y aplicar fórmulas en problemas reales.</p>
+        <div class="topics">
+          <div class="topic"><div class="topic-dot dot-excel"></div>Uso de Microsoft Excel</div>
+          <div class="topic"><div class="topic-dot dot-excel"></div>Creación de tablas</div>
+          <div class="topic"><div class="topic-dot dot-excel"></div>Uso de fórmulas (SUMA, PROMEDIO, etc.)</div>
+          <div class="topic"><div class="topic-dot dot-excel"></div>Elaboración de gráficos</div>
+          <div class="topic"><div class="topic-dot dot-excel"></div>Organización de datos</div>
+          <div class="topic"><div class="topic-dot dot-excel"></div>Aplicación en finanzas y estadísticas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Word -->
+    <div class="card reveal">
+      <div class="card-img-wrap">
+        <img class="card-img" src="img/4.png" alt="Procesador de textos Word" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag tag-word">Procesador de Textos</span>
+        <div class="card-title">Procesador de Textos</div>
+        <p class="card-desc">Creación de documentos formales en Microsoft Word con formato profesional e inserción de elementos.</p>
+        <div class="topics">
+          <div class="topic"><div class="topic-dot dot-word"></div>Uso de Microsoft Word</div>
+          <div class="topic"><div class="topic-dot dot-word"></div>Creación de documentos formales</div>
+          <div class="topic"><div class="topic-dot dot-word"></div>Formato de texto (tipografías y estilos)</div>
+          <div class="topic"><div class="topic-dot dot-word"></div>Inserción de imágenes y tablas</div>
+          <div class="topic"><div class="topic-dot dot-word"></div>Uso de encabezados y pies de página</div>
+          <div class="topic"><div class="topic-dot dot-word"></div>Elaboración de trabajos escolares</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ QUINTO SEMESTRE ══ -->
+<section id="sem5">
+  <div class="sem-header reveal">
+    <span class="sem-badge badge-5">Quinto Semestre</span>
+    <div class="divider"></div>
+  </div>
+  <p class="sem-title reveal" style="margin-bottom:2.5rem;">Diseño y edición digital</p>
+
+  <div class="subject-grid">
+
+    <!-- CorelDRAW -->
+    <div class="card reveal">
+      <div class="card-img-wrap">
+        <img class="card-img" src="img/6.jpg" alt="Software de Diseño — CorelDRAW" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag tag-corel">Software de Diseño</span>
+        <div class="card-title">Software de Diseño — CorelDRAW</div>
+        <p class="card-desc">Creación de imágenes vectoriales, carteles y contenido visual con identidad de marca.</p>
+        <div class="topics">
+          <div class="topic"><div class="topic-dot dot-corel"></div>Uso de programas de diseño digital</div>
+          <div class="topic"><div class="topic-dot dot-corel"></div>Creación de imágenes vectoriales</div>
+          <div class="topic"><div class="topic-dot dot-corel"></div>Manejo de herramientas de diseño</div>
+          <div class="topic"><div class="topic-dot dot-corel"></div>Diseño de carteles y contenido visual</div>
+          <div class="topic"><div class="topic-dot dot-corel"></div>Introducción a identidad visual</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photoshop -->
+    <div class="card reveal">
+      <div class="card-img-wrap">
+        <img class="card-img" src="img/5.png" alt="Edición Digital — Photoshop" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag tag-ps">Edición Digital</span>
+        <div class="card-title">Edición Digital — Photoshop</div>
+        <p class="card-desc">Edición y retoque de imágenes, manejo de capas, efectos visuales y exportación en distintos formatos.</p>
+        <div class="topics">
+          <div class="topic"><div class="topic-dot dot-ps"></div>Edición y retoque de imágenes</div>
+          <div class="topic"><div class="topic-dot dot-ps"></div>Uso de capas para organizar diseños</div>
+          <div class="topic"><div class="topic-dot dot-ps"></div>Herramientas básicas (recorte, pincel, borrador)</div>
+          <div class="topic"><div class="topic-dot dot-ps"></div>Ajustes de color, brillo y contraste</div>
+          <div class="topic"><div class="topic-dot dot-ps"></div>Eliminación y cambio de fondos</div>
+          <div class="topic"><div class="topic-dot dot-ps"></div>Composición de imágenes (fotomontajes)</div>
+          <div class="topic"><div class="topic-dot dot-ps"></div>Exportación en JPG, PNG y otros formatos</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SEXTO SEMESTRE ══ -->
+<section id="sem6">
+  <div class="sem-header reveal">
+    <span class="sem-badge badge-6">Sexto Semestre</span>
+    <div class="divider"></div>
+  </div>
+  <p class="sem-title reveal" style="margin-bottom:2.5rem;">Web y comunicación digital</p>
+
+  <div class="subject-grid">
+
+    <!-- Diseño Web -->
+    <div class="card reveal">
+      <div class="card-img-wrap">
+        <img class="card-img" src="img/1.png" alt="Diseño Web" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag tag-web">Diseño Web</span>
+        <div class="card-title">Diseño Web</div>
+        <p class="card-desc">Estructura de páginas web, HTML básico, inserción de elementos y principios de diseño visual.</p>
+        <div class="topics">
+          <div class="topic"><div class="topic-dot dot-web"></div>Estructura básica de páginas web</div>
+          <div class="topic"><div class="topic-dot dot-web"></div>Uso de HTML básico</div>
+          <div class="topic"><div class="topic-dot dot-web"></div>Diseño de páginas web sencillas</div>
+          <div class="topic"><div class="topic-dot dot-web"></div>Inserción de imágenes, enlaces y texto</div>
+          <div class="topic"><div class="topic-dot dot-web"></div>Organización del contenido web</div>
+          <div class="topic"><div class="topic-dot dot-web"></div>Principios de diseño web (orden, estética)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comunidades Virtuales -->
+    <div class="card reveal">
+      <div class="card-img-wrap">
+        <img class="card-img" src="img/8.jpg" alt="Comunidades Virtuales" loading="lazy" />
+      </div>
+      <div class="card-body">
+        <span class="card-tag tag-com">Comunidades Virtuales</span>
+        <div class="card-title">Comunidades Virtuales</div>
+        <p class="card-desc">Uso responsable de redes sociales, identidad digital, seguridad en internet y colaboración en línea.</p>
+        <div class="topics">
+          <div class="topic"><div class="topic-dot dot-com"></div>Uso responsable de redes sociales</div>
+          <div class="topic"><div class="topic-dot dot-com"></div>Creación de contenido digital</div>
+          <div class="topic"><div class="topic-dot dot-com"></div>Elaboración de podcast</div>
+          <div class="topic"><div class="topic-dot dot-com"></div>Identidad digital</div>
+          <div class="topic"><div class="topic-dot dot-com"></div>Seguridad en internet</div>
+          <div class="topic"><div class="topic-dot dot-com"></div>Impacto de las redes en la sociedad</div>
+          <div class="topic"><div class="topic-dot dot-com"></div>Trabajo colaborativo en línea</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <strong>Expo Capacitación. Informática.</strong>
+  <p style="margin-top:0.5rem;">Materias de informática · 3.° al 6.° Semestre</p>
+</footer>
+
+<!-- ── SCROLL REVEAL JS ── -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 0.08 + 's';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
