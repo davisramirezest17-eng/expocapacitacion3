@@ -38,7 +38,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 999;
-      background: rgba(10,10,15,0.85);
+      background: rgba(10,10,15,0.92);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -55,15 +55,47 @@
       letter-spacing: -0.02em;
       color: var(--text);
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .nav-brand span { color: var(--accent); }
+
+    /* Hamburger button — visible solo en móvil */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .nav-toggle:hover { background: var(--surface2); }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* Animación hamburguesa → X */
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     .nav-links {
       display: flex;
       gap: 0.25rem;
       list-style: none;
-      overflow-x: auto;
     }
 
     .nav-links a {
@@ -88,7 +120,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 5rem 2rem 4rem;
+      padding: 5rem 1.5rem 4rem;
       position: relative;
       overflow: hidden;
     }
@@ -120,7 +152,7 @@
 
     h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-size: clamp(2.4rem, 8vw, 5.5rem);
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.03em;
@@ -163,9 +195,10 @@
 
     /* ── SECTION ── */
     section {
-      padding: 6rem 2rem;
+      padding: 6rem 1.5rem;
       max-width: 1100px;
       margin: 0 auto;
+      width: 100%;
     }
 
     .sem-header {
@@ -183,6 +216,7 @@
       text-transform: uppercase;
       padding: 6px 16px;
       border-radius: 999px;
+      white-space: nowrap;
     }
 
     .badge-3 { background: rgba(124,110,248,0.15); color: var(--accent); border: 1px solid rgba(124,110,248,0.3); }
@@ -192,7 +226,7 @@
 
     .sem-title {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-size: clamp(1.3rem, 3vw, 2.2rem);
       font-weight: 700;
       letter-spacing: -0.02em;
     }
@@ -202,7 +236,7 @@
     /* ── SUBJECT CARDS ── */
     .subject-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
       gap: 1.5rem;
     }
 
@@ -247,14 +281,14 @@
       margin-bottom: 0.85rem;
     }
 
-    .tag-so { background: rgba(124,110,248,0.15); color: var(--accent); }
+    .tag-so   { background: rgba(124,110,248,0.15); color: var(--accent); }
     .tag-mant { background: rgba(240,106,106,0.13); color: var(--accent3); }
-    .tag-excel { background: rgba(79,195,161,0.13); color: var(--accent2); }
-    .tag-word { background: rgba(79,195,161,0.13); color: var(--accent2); }
-    .tag-corel { background: rgba(245,197,66,0.13); color: var(--accent4); }
-    .tag-ps { background: rgba(245,197,66,0.13); color: var(--accent4); }
-    .tag-web { background: rgba(240,106,106,0.13); color: var(--accent3); }
-    .tag-com { background: rgba(240,106,106,0.13); color: var(--accent3); }
+    .tag-excel{ background: rgba(79,195,161,0.13);  color: var(--accent2); }
+    .tag-word { background: rgba(79,195,161,0.13);  color: var(--accent2); }
+    .tag-corel{ background: rgba(245,197,66,0.13);  color: var(--accent4); }
+    .tag-ps   { background: rgba(245,197,66,0.13);  color: var(--accent4); }
+    .tag-web  { background: rgba(240,106,106,0.13); color: var(--accent3); }
+    .tag-com  { background: rgba(240,106,106,0.13); color: var(--accent3); }
 
     .card-title {
       font-family: 'Syne', sans-serif;
@@ -296,19 +330,19 @@
       flex-shrink: 0;
     }
 
-    .dot-so { background: var(--accent); }
+    .dot-so   { background: var(--accent); }
     .dot-mant { background: var(--accent3); }
-    .dot-excel { background: var(--accent2); }
+    .dot-excel{ background: var(--accent2); }
     .dot-word { background: var(--accent2); }
-    .dot-corel { background: var(--accent4); }
-    .dot-ps { background: var(--accent4); }
-    .dot-web { background: var(--accent3); }
-    .dot-com { background: var(--accent3); }
+    .dot-corel{ background: var(--accent4); }
+    .dot-ps   { background: var(--accent4); }
+    .dot-web  { background: var(--accent3); }
+    .dot-com  { background: var(--accent3); }
 
     /* ── FOOTER ── */
     footer {
       text-align: center;
-      padding: 3rem 2rem;
+      padding: 3rem 1.5rem;
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 0.85rem;
@@ -331,13 +365,74 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── RESPONSIVE ── */
+    /* ── RESPONSIVE: TABLET (< 768px) ── */
+    @media (max-width: 768px) {
+      section { padding: 5rem 1.25rem; }
+    }
+
+    /* ── RESPONSIVE: MÓVIL (< 640px) ── */
     @media (max-width: 640px) {
-      nav { padding: 0 1rem; }
-      .nav-brand { font-size: 0.95rem; }
-      .nav-links a { padding: 6px 10px; font-size: 0.75rem; }
+      /* Nav */
+      nav {
+        padding: 0 1.25rem;
+        height: 56px;
+      }
+
+      .nav-brand { font-size: 1rem; }
+
+      /* Mostrar botón hamburguesa */
+      .nav-toggle { display: flex; }
+
+      /* Menú desplegable vertical */
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 0.25rem;
+        position: fixed;
+        top: 56px;
+        left: 0; right: 0;
+        background: rgba(10,10,15,0.97);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 1.25rem 1.5rem;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a {
+        font-size: 1rem;
+        padding: 10px 14px;
+        border-radius: 10px;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 5rem 1.25rem 3.5rem;
+      }
+
+      h1 { font-size: clamp(2rem, 11vw, 3rem); }
+
+      .hero-desc { font-size: 0.95rem; }
+
+      .pill { font-size: 0.8rem; padding: 7px 16px; }
+
+      /* Secciones */
       section { padding: 4rem 1.25rem; }
-      .subject-grid { grid-template-columns: 1fr; }
+
+      .sem-header { gap: 1rem; }
+
+      .subject-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+
+      .card-img { height: 180px; }
+
+      .card-body { padding: 1.25rem; }
+    }
+
+    /* ── RESPONSIVE: MÓVIL PEQUEÑO (< 380px) ── */
+    @media (max-width: 380px) {
+      .nav-brand { font-size: 0.9rem; }
+      h1 { font-size: clamp(1.8rem, 12vw, 2.4rem); }
+      .sem-badge { font-size: 0.62rem; padding: 5px 12px; }
     }
   </style>
 </head>
@@ -346,11 +441,17 @@
 <!-- ── NAV ── -->
 <nav>
   <div class="nav-brand">Expo<span>.</span>Informática</div>
-  <ul class="nav-links">
-    <li><a href="#sem3">3.° Semestre</a></li>
-    <li><a href="#sem4">4.° Semestre</a></li>
-    <li><a href="#sem5">5.° Semestre</a></li>
-    <li><a href="#sem6">6.° Semestre</a></li>
+
+  <!-- Hamburger -->
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links" id="navMenu">
+    <li><a href="#sem3" class="nav-link">3.° Semestre</a></li>
+    <li><a href="#sem4" class="nav-link">4.° Semestre</a></li>
+    <li><a href="#sem5" class="nav-link">5.° Semestre</a></li>
+    <li><a href="#sem6" class="nav-link">6.° Semestre</a></li>
   </ul>
 </nav>
 
@@ -358,7 +459,7 @@
 <div class="hero">
   <div class="hero-label">Capacitación en Informática</div>
   <h1>Expo<br><em>Capacitación.</em><br>Informática.</h1>
-  <p class="hero-desc">Explora las materias de informática organizadas por semestre: desde sistemas operativos hasta edición igital y comunidades virtuales.</p>
+  <p class="hero-desc">Explora las materias de informática organizadas por semestre: desde sistemas operativos hasta edición digital y comunidades virtuales.</p>
   <div class="hero-pills">
     <div class="pill">Sistemas Operativos</div>
     <div class="pill">Hojas de Cálculo</div>
@@ -378,7 +479,6 @@
 
   <div class="subject-grid">
 
-    <!-- Sistemas Operativos -->
     <div class="card reveal">
       <div class="card-img-wrap">
         <img class="card-img" src="img/9.jpg" alt="Sistemas operativos" loading="lazy" />
@@ -398,7 +498,6 @@
       </div>
     </div>
 
-    <!-- Mantenimiento -->
     <div class="card reveal">
       <div class="card-img-wrap">
         <img class="card-img" src="img/3.jpg" alt="Mantenimiento del Equipo de Cómputo" loading="lazy" />
@@ -431,7 +530,6 @@
 
   <div class="subject-grid">
 
-    <!-- Excel -->
     <div class="card reveal">
       <div class="card-img-wrap">
         <img class="card-img" src="img/5.jpg" alt="Hojas de Cálculo" loading="lazy" />
@@ -451,7 +549,6 @@
       </div>
     </div>
 
-    <!-- Word -->
     <div class="card reveal">
       <div class="card-img-wrap">
         <img class="card-img" src="img/4.png" alt="Procesador de textos Word" loading="lazy" />
@@ -484,7 +581,6 @@
 
   <div class="subject-grid">
 
-    <!-- CorelDRAW -->
     <div class="card reveal">
       <div class="card-img-wrap">
         <img class="card-img" src="img/6.jpg" alt="Software de Diseño — CorelDRAW" loading="lazy" />
@@ -503,7 +599,6 @@
       </div>
     </div>
 
-    <!-- Photoshop -->
     <div class="card reveal">
       <div class="card-img-wrap">
         <img class="card-img" src="img/5.png" alt="Edición Digital — Photoshop" loading="lazy" />
@@ -537,7 +632,6 @@
 
   <div class="subject-grid">
 
-    <!-- Diseño Web -->
     <div class="card reveal">
       <div class="card-img-wrap">
         <img class="card-img" src="img/1.png" alt="Diseño Web" loading="lazy" />
@@ -557,7 +651,6 @@
       </div>
     </div>
 
-    <!-- Comunidades Virtuales -->
     <div class="card reveal">
       <div class="card-img-wrap">
         <img class="card-img" src="img/8.jpg" alt="Comunidades Virtuales" loading="lazy" />
@@ -587,8 +680,9 @@
   <p style="margin-top:0.5rem;">Materias de informática · 3.° al 6.° Semestre</p>
 </footer>
 
-<!-- ── SCROLL REVEAL JS ── -->
+<!-- ── SCRIPTS ── -->
 <script>
+  /* ── Scroll reveal ── */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -601,6 +695,25 @@
   document.querySelectorAll('.reveal').forEach((el, i) => {
     el.style.transitionDelay = (i % 4) * 0.08 + 's';
     observer.observe(el);
+  });
+
+  /* ── Hamburger menu ── */
+  const toggle = document.querySelector('.nav-toggle');
+  const menu   = document.querySelector('.nav-links');
+
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+  });
+
+  /* Cerrar menú al hacer clic en un enlace */
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
   });
 </script>
 
